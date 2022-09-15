@@ -14,6 +14,9 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const user = users.find(val => val.id === +req.params.id)
+    if(user === undefined) {
+        res.send('There is no user with that id')
+    }
     res.send(user)
 })
 
@@ -41,6 +44,9 @@ router.post('/user', (req, res) => {
 
 router.put('/update/:id', (req, res) => {
     const user = users.find(val => val.id === +req.params.id)
+    if(user === undefined) {
+        res.send('There is no user with that id')
+    }
 
     const schema = Joi.object({
         name: Joi.string().trim().required().min(3),
